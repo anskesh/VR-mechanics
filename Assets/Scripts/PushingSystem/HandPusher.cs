@@ -1,13 +1,18 @@
-using PusherSystem.Configurations;
+using PushingSystem.Configurations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PusherSystem
+namespace PushingSystem
 {
     public class HandPusher : MonoBehaviour
     {
         [SerializeField] private BallConfiguration _ballConfiguration;
         [SerializeField] private InputActionProperty _velocityProperty;
+
+        private void Awake()
+        {
+            _velocityProperty.action.Enable();
+        }
 
         private void OnCollisionEnter(Collision other)
         {
@@ -15,7 +20,7 @@ namespace PusherSystem
                 return;
 
             var velocity = GetVelocity();
-
+            
             if (velocity == Vector3.zero)
             {
                 pushable.Push();

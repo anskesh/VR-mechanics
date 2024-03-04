@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PusherSystem
+namespace PushingSystem
 {
     public interface IPushable
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PusherSystem.Configurations
+namespace PushingSystem.Configurations
 {
     [CreateAssetMenu(fileName = "BallConfiguration", menuName = "Configurations/Ball")]
     public class BallConfiguration : ScriptableObject

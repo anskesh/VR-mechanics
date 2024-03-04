@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-namespace PusherSystem
+namespace PushingSystem
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Ball : MonoBehaviour, IPushable
@@ -16,11 +15,6 @@ namespace PusherSystem
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        public void Initialize(float lifeTime)
-        {
-            _lifeTime = lifeTime;
-        }
-
         private void OnEnable()
         {
             _rigidbody.isKinematic = false;
@@ -32,6 +26,11 @@ namespace PusherSystem
                 return;
             
             Disable();
+        }
+        
+        public void Initialize(float lifeTime)
+        {
+            _lifeTime = lifeTime;
         }
 
         public void Push()

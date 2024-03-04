@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using PusherSystem.Configurations;
+using PushingSystem.Configurations;
 using UnityEngine;
 
-namespace PusherSystem
+namespace PushingSystem
 {
     public class BallSpawner : MonoBehaviour
     {
