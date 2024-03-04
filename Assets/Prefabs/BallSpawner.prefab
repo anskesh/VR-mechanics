@@ -153,9 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 4209732595549066726}
-  _template: {fileID: 4149810543348018372, guid: 567b373d9bc45a44b94b97a7503e4bee, type: 3}
-  _lifeTime: 10
-  _countOnStart: 5
+  _spawnerConfiguration: {fileID: 11400000, guid: b89511650ddd22a49930880e1b11df0b, type: 2}
 --- !u!65 &4527383987911580268
 BoxCollider:
   m_ObjectHideFlags: 0
