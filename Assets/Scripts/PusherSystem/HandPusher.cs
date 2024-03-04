@@ -15,6 +15,9 @@ namespace PusherSystem
                 return;
 
             var velocity = GetVelocity();
+            if (velocity == Vector3.zero)
+                return;
+            
             var direction = velocity.normalized;
             var force = direction * velocity.magnitude * _ballConfiguration.ForceMultiplier;
 
