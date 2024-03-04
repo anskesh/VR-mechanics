@@ -64,7 +64,7 @@ namespace PusherSystem
         {
             var pushable = Instantiate(_spawnerConfiguration.Template, _spawnPoint);
             pushable.gameObject.SetActive(false);
-            pushable.Init(_spawnerConfiguration.LifeTime);
+            pushable.Initialize(_spawnerConfiguration.LifeTime);
             _balls.Add(pushable);
 
             return pushable;

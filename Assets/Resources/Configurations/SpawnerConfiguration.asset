@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SpawnerConfiguration
   m_EditorClassIdentifier: 
   Template: {fileID: 4149810543348018372, guid: 567b373d9bc45a44b94b97a7503e4bee, type: 3}
-  LifeTime: 10
+  LifeTime: 8
   CountOnStart: 5
-  RespawnDelay: 1
+  RespawnDelay: 0.6

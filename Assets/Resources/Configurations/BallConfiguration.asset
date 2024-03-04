@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ca58218261dc14590eab8bc5f8c9dc, type: 3}
   m_Name: BallConfiguration
   m_EditorClassIdentifier: 
-  ForceMultiplier: 10
+  ForceMultiplier: 5

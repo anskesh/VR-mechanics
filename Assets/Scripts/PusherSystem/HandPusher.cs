@@ -15,13 +15,18 @@ namespace PusherSystem
                 return;
 
             var velocity = GetVelocity();
+
             if (velocity == Vector3.zero)
+            {
+                pushable.Push();
                 return;
-            
-            var direction = velocity.normalized;
+            }
+
+            var contactPoint = other.contacts[0].point;
+            var direction = (contactPoint - transform.position).normalized;
             var force = direction * velocity.magnitude * _ballConfiguration.ForceMultiplier;
 
-            pushable.Push(force, other.contacts[0].point);
+            pushable.Push(force, contactPoint);
         }
 
         private Vector3 GetVelocity() => _velocityProperty.action.ReadValue<Vector3>();
