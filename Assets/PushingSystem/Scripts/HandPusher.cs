@@ -16,24 +16,24 @@ namespace PushingSystem
 
         private void OnCollisionEnter(Collision other)
         {
-            if (!other.collider.TryGetComponent<IPushable>(out var pushable))
+            if (!other.collider.TryGetComponent(out Ball pushable))
                 return;
 
-            var velocity = GetVelocity();
-            
+            Vector3 velocity = GetVelocity();
+
             if (velocity == Vector3.zero)
             {
-                pushable.Push();
+                pushable.Push(velocity, velocity);
                 return;
             }
 
-            var contactPoint = other.contacts[0].point;
-            var direction = (contactPoint - transform.position).normalized;
-            var force = direction * velocity.magnitude * _ballConfiguration.ForceMultiplier;
+            Vector3 contactPoint = other.contacts[0].point;
+            Vector3 direction = (contactPoint - transform.position).normalized;
+            Vector3 force = direction * velocity.magnitude * _ballConfiguration.ForceMultiplier;
 
             pushable.Push(force, contactPoint);
         }
 
-        private Vector3 GetVelocity() => _velocityProperty.action.ReadValue<Vector3>();
+        private Vector3 GetVelocity() { return _velocityProperty.action.ReadValue<Vector3>(); }
     }
 }

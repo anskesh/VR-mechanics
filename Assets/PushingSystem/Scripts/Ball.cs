@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace PushingSystem
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Ball : MonoBehaviour, IPushable
+    public class Ball : MonoBehaviour
     {
+        public Action<Ball> DisabledBallEvent;
+
+        private bool _isWaitingDisable;
         private Rigidbody _rigidbody;
-        private bool _canDisable;
         private float _lifeTime;
 
         private void Awake()
@@ -20,43 +23,30 @@ namespace PushingSystem
             _rigidbody.isKinematic = false;
         }
 
-        private void Update()
-        {
-            if (_canDisable == false)
-                return;
-            
-            Disable();
-        }
-        
         public void Initialize(float lifeTime)
         {
             _lifeTime = lifeTime;
         }
 
-        public void Push()
-        {
-            StartCoroutine(WaitDisable());
-        }
-
         public void Push(Vector3 force, Vector3 collisionPoint)
         {
             _rigidbody.AddForceAtPosition(force, collisionPoint, ForceMode.Impulse);
-            Push();
+            
+            if (!_isWaitingDisable)
+                StartCoroutine(Disable());
         }
 
-        private IEnumerator WaitDisable()
+        private IEnumerator Disable()
         {
+            _isWaitingDisable = true;
             yield return new WaitForSeconds(_lifeTime);
-            _canDisable = true;
-        }
-
-        private void Disable()
-        {
-            _canDisable = false;
+            
             gameObject.SetActive(false);
+            DisabledBallEvent?.Invoke(this);
+            
             _rigidbody.isKinematic = true;
             _rigidbody.velocity = Vector3.zero;
-            transform.rotation = Quaternion.Euler(0,0,0);
+            _isWaitingDisable = false;
         }
     }
 }
