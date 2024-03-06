@@ -659,6 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7920954630475815413}
   - component: {fileID: 6399078465200663127}
+  - component: {fileID: 807378324789653426}
   m_Layer: 5
   m_Name: SliderComponent
   m_TagString: Untagged
@@ -700,6 +701,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e5a7ccd5cba104bb0d7aed21f89285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textValue: {fileID: 7920954629529932528}
+--- !u!114 &807378324789653426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920954630475815412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -728,7 +742,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 7920954630067176119}
+  m_TargetGraphic: {fileID: 7920954628576205346}
   m_FillRect: {fileID: 7920954628612828072}
   m_HandleRect: {fileID: 7920954630067176118}
   m_Direction: 0
@@ -739,4 +753,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  _textValue: {fileID: 7920954629529932528}

@@ -6,9 +6,9 @@ namespace QualitySettings
 {
     public static class Utility
     {
-        public static string ConvertValueToString<T>(string value) where T:Enum
+        public static string ConvertEnumValueToString(Type type, string value)
         {
-            FieldInfo fieldInfo = typeof(T).GetField(value);
+            FieldInfo fieldInfo = type.GetField(value);
             InspectorNameAttribute inspectorNameAttribute =
                 (InspectorNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(InspectorNameAttribute));
 
