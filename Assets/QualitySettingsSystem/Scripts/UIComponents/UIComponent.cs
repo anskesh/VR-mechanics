@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     public class UIComponent : MonoBehaviour
     {

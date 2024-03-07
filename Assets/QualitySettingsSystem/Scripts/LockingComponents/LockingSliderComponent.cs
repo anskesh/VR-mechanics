@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     [RequireComponent(typeof(SliderComponent))]
     public class LockingSliderComponent : LockingComponent
@@ -22,29 +21,19 @@ namespace QualitySettings
             _sliderComponent.ValueChangedEvent -= OnValueChanged;
         }
         
-        protected override void UpdateValues()
-        {
-            if (!_sliderComponent.Slider.wholeNumbers) return;
-            
-            int capacity = _sliderComponent.ValuesCount;
-            BlockingInfos ??= new List<BlockingInfo>(capacity);
-
-            for (int i = 0; i < capacity; i++)
-            {
-                string valueName = (i + _sliderComponent.MinValue).ToString();
-                
-                if (BlockingInfos.Count <= i)
-                    BlockingInfos.Add(new BlockingInfo(valueName));
-                else
-                    BlockingInfos[i].SetName(valueName);
-            }
-            
-            RemoveExtraValues(capacity);
-        }
-        
         protected override void OnComponentFounded()
         {
             _sliderComponent = Component as SliderComponent;
+        }
+
+        protected override void SetCapacity()
+        {
+            Capacity = _sliderComponent.ValuesCount;
+        }
+
+        protected override string GetName(int index)
+        {
+            return (index + _sliderComponent.MinValue).ToString();
         }
 
         private void OnValueChanged(float value)

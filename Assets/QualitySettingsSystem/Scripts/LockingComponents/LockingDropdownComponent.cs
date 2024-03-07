@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     [RequireComponent(typeof(DropdownComponent))]
     public class LockingDropdownComponent : LockingComponent
@@ -20,28 +19,20 @@ namespace QualitySettings
             base.OnDestroy();
             _dropdownComponent.ValueChangedEvent -= OnValueChanged;
         }
-        
-        protected override void UpdateValues()
-        {
-            int capacity = _dropdownComponent.Options.Count;
-            BlockingInfos ??= new List<BlockingInfo>(capacity);
-
-            for (int i = 0; i < capacity; i++)
-            {
-                string valueName = _dropdownComponent.Options[i].text;
-                
-                if (BlockingInfos.Count <= i)
-                    BlockingInfos.Add(new BlockingInfo(valueName));
-                else
-                    BlockingInfos[i].SetName(valueName);
-            }
-            
-            RemoveExtraValues(capacity);
-        }
 
         protected override void OnComponentFounded()
         {
             _dropdownComponent = Component as DropdownComponent;
+        }
+
+        protected override void SetCapacity()
+        {
+            Capacity = _dropdownComponent.Options.Count;
+        }
+
+        protected override string GetName(int index)
+        {
+            return _dropdownComponent.Options[index].text;
         }
 
         private void OnValueChanged(int value)

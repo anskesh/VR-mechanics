@@ -641,18 +641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9c4d02372085f4aafa7d2cc74ce6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeName: UnityEngine.Rendering.Universal.RendererType, Unity.RenderPipelines.Universal.Runtime,
-    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  _optionData:
-  - _text: Custom
-    _value: 0
-  - _text: Universal Renderer
-    _value: 1
-  - _text: Forward Renderer
-    _value: 1
-  - _text: 2 D Renderer
-    _value: 2
-  _valuesEqualsIndexes: 1
+  Selectable: {fileID: 6027378175529677265}
+  _typeEnumName: RendererType
+  _dropdown: {fileID: 6027378175529677265}
+  _values: 000000000100000001000000
 --- !u!114 &8024116955542220707
 MonoBehaviour:
   m_ObjectHideFlags: 0

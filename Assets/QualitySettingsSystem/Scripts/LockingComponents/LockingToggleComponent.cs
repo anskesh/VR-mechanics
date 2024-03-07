@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     [RequireComponent(typeof(ToggleComponent))]
     public class LockingToggleComponent : LockingComponent
@@ -24,25 +23,19 @@ namespace QualitySettings
             _toggleComponent.ValueChangedEvent -= OnValueChanged;
         }
         
-        protected override void UpdateValues()
-        {
-            int capacity = _toggleValues.Length;
-            BlockingInfos ??= new List<BlockingInfo>(capacity);
-            
-            for (int i = 0; i < capacity; i++)
-            {
-                if (BlockingInfos.Count <= i)
-                    BlockingInfos.Add(new BlockingInfo(_toggleValues[i]));
-                else
-                    BlockingInfos[i].SetName(_toggleValues[i]);
-            }
-            
-            RemoveExtraValues(capacity);
-        }
-        
         protected override void OnComponentFounded()
         {
            _toggleComponent = Component as ToggleComponent;
+        }
+
+        protected override void SetCapacity()
+        {
+            Capacity = _toggleValues.Length;
+        }
+
+        protected override string GetName(int index)
+        {
+            return _toggleValues[index];
         }
 
         private void OnValueChanged(bool value)

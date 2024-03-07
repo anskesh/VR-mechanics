@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     [RequireComponent(typeof(Slider))]
     public class SliderComponent : UIComponent
@@ -19,15 +19,13 @@ namespace QualitySettings
             get => Slider.value;
             set => Slider.value = value;
         }
-
         
-        [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _textValue;
+        [SerializeField, HideInInspector] private Slider _slider;
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            
             _slider = Selectable as Slider;
         }
         
@@ -43,8 +41,7 @@ namespace QualitySettings
         {
             base.OnDestroy();
             
-            if (Slider)
-                Slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+            if (Slider) Slider.onValueChanged.RemoveListener(OnSliderValueChanged);
         }
         
         private void OnSliderValueChanged(float value)

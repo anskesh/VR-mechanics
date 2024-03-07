@@ -1,4 +1,5 @@
-﻿using QualitySettings.Utility;
+﻿using QualitySettings.UIComponents;
+using QualitySettings.Utility;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;

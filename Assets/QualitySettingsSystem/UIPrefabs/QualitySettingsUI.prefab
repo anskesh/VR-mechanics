@@ -2333,8 +2333,37 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.MsaaQuality, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _valuesEqualsIndexes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[4]
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -2584,8 +2613,37 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _valuesEqualsIndexes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[4]
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -3687,6 +3745,14 @@ PrefabInstance:
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
       value: High Dynamic Range
       objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      value: High Dynamic Range
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      value: High Dynamic Range
+      objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: TypeName
       value: UnityEngine.Rendering.Universal.ColorGradingMode, Unity.RenderPipelines.Universal.Runtime,
@@ -3696,6 +3762,31 @@ PrefabInstance:
       propertyPath: _typeName
       value: UnityEngine.Rendering.Universal.ColorGradingMode, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.ColorGradingMode, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -4270,8 +4361,33 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.UpscalingFilterSelection, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _valuesEqualsIndexes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -4478,6 +4594,18 @@ PrefabInstance:
       propertyPath: m_Options.m_Options.Array.data[2].m_Text
       value: Per Vertex
       objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      value: 2 D Renderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      value: FidelityFX Super Resolution 1.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[5].m_Text
+      value: FidelityFX Super Resolution 1.0
+      objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: TypeName
       value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
@@ -4485,8 +4613,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeName
+      value: UnityEngine.Rendering.Universal.RendererType, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -4856,6 +5005,18 @@ PrefabInstance:
       propertyPath: m_Options.m_Options.Array.data[3].m_Text
       value: 4x Bilinear
       objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      value: 2 D Renderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[5].m_Text
+      value: 2 D Renderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[6].m_Text
+      value: 2 D Renderer
+      objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: TypeName
       value: UnityEngine.Rendering.Universal.Downsampling, Unity.RenderPipelines.Universal.Runtime,
@@ -4867,8 +5028,29 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.Downsampling, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _valuesEqualsIndexes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
@@ -5207,6 +5389,31 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -5453,8 +5660,37 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _typeEnumName
+      value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _valuesEqualsIndexes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[0]
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[1]
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[2]
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[3]
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _values.Array.data[4]
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size

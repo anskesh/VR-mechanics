@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace QualitySettings
+namespace QualitySettings.UIComponents
 {
     [RequireComponent(typeof(Toggle))]
     public class ToggleComponent : UIComponent
@@ -22,14 +22,12 @@ namespace QualitySettings
         protected override void OnValidate()
         {
             base.OnValidate();
-            
             _toggle = Selectable as Toggle;
         }
 
         protected override void Awake()
         {
             base.Awake();
-            
             _toggle.onValueChanged.AddListener(OnValueChanged);
         }
 
@@ -37,8 +35,7 @@ namespace QualitySettings
         {
             base.OnDestroy();
             
-            if (_toggle)
-                _toggle.onValueChanged.RemoveListener(OnValueChanged);
+            if (_toggle) _toggle.onValueChanged.RemoveListener(OnValueChanged);
         }
 
         private void OnValueChanged(bool value)
