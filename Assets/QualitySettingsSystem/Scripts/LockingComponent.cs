@@ -21,6 +21,11 @@ namespace QualitySettings
             UpdateValues();
         }
 
+        public void OnValidate()
+        {
+            UpdateValues();
+        }
+
         protected virtual void Awake() {}
         protected virtual void OnDestroy() {}
 
@@ -46,6 +51,15 @@ namespace QualitySettings
                 component.SetInteractable(isInteractable);
         }
 
+        protected void RemoveExtraValues(int capacity)
+        {
+            if (BlockingInfos.Count <= capacity)
+                return;
+            
+            for (int i = capacity - 1; i < BlockingInfos.Count; i++)
+                BlockingInfos.RemoveAt(BlockingInfos.Count - 1);
+        }
+
         [Serializable]
         protected class BlockingInfo
         {
@@ -56,6 +70,11 @@ namespace QualitySettings
             [SerializeField] private List<UIComponent> _components = new();
 
             public BlockingInfo(string name)
+            {
+                _name = name;
+            }
+
+            public void SetName(string name)
             {
                 _name = name;
             }

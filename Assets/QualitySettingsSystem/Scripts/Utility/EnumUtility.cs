@@ -2,9 +2,9 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace QualitySettings
+namespace QualitySettings.Utility
 {
-    public static class Utility
+    public static class EnumUtility
     {
         public static string ConvertEnumValueToString(Type type, string value)
         {

@@ -3,38 +3,40 @@ using UnityEngine;
 
 namespace QualitySettings
 {
-    [RequireComponent(typeof(ToggleComponent))]
-    public class LockingToggleComponent : LockingComponent
+    [RequireComponent(typeof(SliderComponent))]
+    public class LockingSliderComponent : LockingComponent
     {
-        [SerializeField, HideInInspector] private ToggleComponent _toggleComponent;
-        
-        private readonly string[] _toggleValues = {"is On", "is Off"};
+        [SerializeField, HideInInspector] private SliderComponent _sliderComponent;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _toggleComponent.ValueChangedEvent += OnValueChanged;
+            _sliderComponent.ValueChangedEvent += OnValueChanged;
             ActivateLock(0);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _toggleComponent.ValueChangedEvent -= OnValueChanged;
+            _sliderComponent.ValueChangedEvent -= OnValueChanged;
         }
         
         protected override void UpdateValues()
         {
-            int capacity = _toggleValues.Length;
-            BlockingInfos ??= new List<BlockingInfo>(capacity);
+            if (!_sliderComponent.Slider.wholeNumbers) return;
             
+            int capacity = _sliderComponent.ValuesCount;
+            BlockingInfos ??= new List<BlockingInfo>(capacity);
+
             for (int i = 0; i < capacity; i++)
             {
+                string valueName = (i + _sliderComponent.MinValue).ToString();
+                
                 if (BlockingInfos.Count <= i)
-                    BlockingInfos.Add(new BlockingInfo(_toggleValues[i]));
+                    BlockingInfos.Add(new BlockingInfo(valueName));
                 else
-                    BlockingInfos[i].SetName(_toggleValues[i]);
+                    BlockingInfos[i].SetName(valueName);
             }
             
             RemoveExtraValues(capacity);
@@ -42,12 +44,12 @@ namespace QualitySettings
         
         protected override void OnComponentFounded()
         {
-           _toggleComponent = Component as ToggleComponent;
+            _sliderComponent = Component as SliderComponent;
         }
 
-        private void OnValueChanged(bool value)
+        private void OnValueChanged(float value)
         {
-            int index = value ? 0 : 1;
+            int index = (int) value;
             
             if (CurrentIndex == index)
                 return;

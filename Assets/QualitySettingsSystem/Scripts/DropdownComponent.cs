@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using QualitySettings.Utility;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace QualitySettings
         public Action<int> ValueChangedEvent;
 
         public Type EnumType { get; private set; }
-        public TMP_Dropdown Dropdown => _dropdown;
+        public IReadOnlyList<TMP_Dropdown.OptionData> Options => _dropdown.options;
 
         [SerializeField, HideInInspector] private bool _valuesEqualsIndexes = true;
         [SerializeField, HideInInspector] private string _typeName;
@@ -31,6 +32,7 @@ namespace QualitySettings
         protected override void Awake()
         {
             base.Awake();
+            UpdateType();
             _dropdown.onValueChanged.AddListener(OnValueChanged);
         }
 
@@ -53,16 +55,21 @@ namespace QualitySettings
             InitializeValues();
         }
 
-        public Enum GetValue()
+        public Enum GetEnum()
         {
-            int enumValue = _optionData[Dropdown.value].Value;
+            int enumValue = _optionData[_dropdown.value].Value;
             return (Enum) Enum.ToObject(EnumType, enumValue);
+        }
+
+        public int GetValue()
+        {
+            return _optionData[_dropdown.value].Value;
         }
 
         public void ChangeValue(Enum enumerable)
         {
             int enumValue = Convert.ToInt16(enumerable);
-            Dropdown.value = _optionData[GetEnumIndex(enumValue)].Value;
+            _dropdown.value = _optionData[GetEnumIndex(enumValue)].Value;
         }
 
         private void InitializeValues()
@@ -70,19 +77,19 @@ namespace QualitySettings
             Array values = Enum.GetValues(EnumType);
             Array names = Enum.GetNames(EnumType);
 
-            Dropdown.options.Clear();
+            _dropdown.options.Clear();
             _optionData = new OptionData[values.Length];
 
             for (int i = 0; i < values.Length; i++)
             {
                 int enumValue = (int) values.GetValue(i);
-                string name = Utility.ConvertEnumValueToString(EnumType, (string) names.GetValue(i));
+                string name = EnumUtility.ConvertEnumValueToString(EnumType, (string) names.GetValue(i));
                 OptionData data = new OptionData(name, enumValue);
 
                 if (data.Value != i)
                     _valuesEqualsIndexes = false;
 
-                Dropdown.options.Add(new TMP_Dropdown.OptionData(data.Text));
+                _dropdown.options.Add(new TMP_Dropdown.OptionData(data.Text));
                 _optionData[i] = data;
             }
         }
@@ -153,6 +160,9 @@ namespace QualitySettings
             {
                 _dropdownComponent.UpdateType(selectedType.AssemblyQualifiedName, selectedType);
                 EditorUtility.SetDirty(_dropdownComponent);
+                
+                if (_dropdownComponent.TryGetComponent(out LockingDropdownComponent lockingDropdownComponent))
+                    lockingDropdownComponent.OnValidate();
             }
 
             serializedObject.ApplyModifiedProperties();

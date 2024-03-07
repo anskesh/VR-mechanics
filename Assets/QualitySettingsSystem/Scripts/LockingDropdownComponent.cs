@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace QualitySettings
@@ -8,14 +7,10 @@ namespace QualitySettings
     public class LockingDropdownComponent : LockingComponent
     {
         [SerializeField, HideInInspector] private DropdownComponent _dropdownComponent;
-        [SerializeField, HideInInspector] private string _enumTypeName;
-        
-        private Type _enumType;
 
         protected override void Awake()
         {
             base.Awake();
-            
             _dropdownComponent.ValueChangedEvent += OnValueChanged;
             ActivateLock(CurrentIndex);
         }
@@ -23,13 +18,25 @@ namespace QualitySettings
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            
             _dropdownComponent.ValueChangedEvent -= OnValueChanged;
         }
         
         protected override void UpdateValues()
         {
-            UpdateType();
+            int capacity = _dropdownComponent.Options.Count;
+            BlockingInfos ??= new List<BlockingInfo>(capacity);
+
+            for (int i = 0; i < capacity; i++)
+            {
+                string valueName = _dropdownComponent.Options[i].text;
+                
+                if (BlockingInfos.Count <= i)
+                    BlockingInfos.Add(new BlockingInfo(valueName));
+                else
+                    BlockingInfos[i].SetName(valueName);
+            }
+            
+            RemoveExtraValues(capacity);
         }
 
         protected override void OnComponentFounded()
@@ -45,34 +52,6 @@ namespace QualitySettings
             DeactivateLock(CurrentIndex);
             ActivateLock(value);
             CurrentIndex = value;
-        }
-
-        private void UpdateType()
-        {
-            if (_dropdownComponent.EnumType == null)
-                return;
-            
-            if (_enumTypeName == _dropdownComponent.EnumType.AssemblyQualifiedName || _dropdownComponent.EnumType == null) 
-                return;
-            
-            _enumType = _dropdownComponent.EnumType;
-            _enumTypeName = _enumType.AssemblyQualifiedName;
-            InitializeValues();
-        }
-
-        private void InitializeValues()
-        {
-            Array values = Enum.GetValues(_enumType);
-            BlockingInfos = new List<BlockingInfo>(values.Length);
-
-            for (int i = 0; i < values.Length; i++)
-            {
-                if (_dropdownComponent.Dropdown.options.Count <= i)
-                    return;
-                
-                BlockingInfo blockingInfo = new (_dropdownComponent.Dropdown.options[i].text);
-                BlockingInfos.Add(blockingInfo);
-            }
         }
     }
 }
