@@ -4,7 +4,7 @@ using UnityEngine;
 namespace QualitySettings
 {
     [RequireComponent(typeof(ToggleComponent))]
-    public class BlockingToggleComponent : BlockingComponent<bool>
+    public class LockingToggleComponent : LockingComponent
     {
         [SerializeField, HideInInspector] private ToggleComponent _toggleComponent;
 
@@ -12,9 +12,8 @@ namespace QualitySettings
         {
             base.Awake();
 
-            LastValue = true;
             _toggleComponent.ValueChangedEvent += OnValueChanged;
-            ChangeCurrentComponentsInteractable(0, false);
+            ActivateLock(0);
         }
 
         protected override void OnDestroy()
@@ -25,7 +24,7 @@ namespace QualitySettings
 
         protected override void UpdateValues()
         {
-            if (BlockingInfos.Count >= 2)
+            if (BlockingInfos?.Count >= 2)
                 return;
             
             BlockingInfos = new List<BlockingInfo>(2);
@@ -42,16 +41,17 @@ namespace QualitySettings
            _toggleComponent = Component as ToggleComponent;
         }
 
-        protected override void OnValueChanged(bool value)
+        private void OnValueChanged(bool value)
         {
-            if (LastValue == value)
+            int index = value ? 0 : 1;
+            
+            if (CurrentIndex == index)
                 return;
             
-            int index = value ? 0 : 1;
-            ChangeCurrentComponentsInteractable((index + 1) % 2, true);
-            ChangeCurrentComponentsInteractable(index, false);
+            DeactivateLock(CurrentIndex);
+            ActivateLock(index);
             
-            LastValue = value;
+            CurrentIndex = index;
         }
     }
 }

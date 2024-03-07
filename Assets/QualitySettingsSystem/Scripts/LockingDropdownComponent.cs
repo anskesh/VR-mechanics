@@ -5,7 +5,7 @@ using UnityEngine;
 namespace QualitySettings
 {
     [RequireComponent(typeof(DropdownComponent))]
-    public class BlockingDropdownComponent : BlockingComponent<int>
+    public class LockingDropdownComponent : LockingComponent
     {
         [SerializeField, HideInInspector] private DropdownComponent _dropdownComponent;
         [SerializeField, HideInInspector] private string _enumTypeName;
@@ -17,7 +17,7 @@ namespace QualitySettings
             base.Awake();
             
             _dropdownComponent.ValueChangedEvent += OnValueChanged;
-            ChangeCurrentComponentsInteractable(LastValue, false);
+            ActivateLock(CurrentIndex);
         }
 
         protected override void OnDestroy()
@@ -37,14 +37,14 @@ namespace QualitySettings
             _dropdownComponent = Component as DropdownComponent;
         }
 
-        protected override void OnValueChanged(int value)
+        private void OnValueChanged(int value)
         {
-            if (LastValue == value)
+            if (CurrentIndex == value)
                 return;
 
-            ChangeCurrentComponentsInteractable(LastValue, true);
-            ChangeCurrentComponentsInteractable(value, false);
-            LastValue = value;
+            DeactivateLock(CurrentIndex);
+            ActivateLock(value);
+            CurrentIndex = value;
         }
 
         private void UpdateType()

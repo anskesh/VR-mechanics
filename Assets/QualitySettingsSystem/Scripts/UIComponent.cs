@@ -5,7 +5,7 @@ namespace QualitySettings
 {
     public class UIComponent : MonoBehaviour
     {
-        protected Selectable Selectable;
+        [SerializeField, HideInInspector] protected Selectable Selectable;
 
         protected virtual void Awake() {}
         protected virtual void OnDestroy() {}

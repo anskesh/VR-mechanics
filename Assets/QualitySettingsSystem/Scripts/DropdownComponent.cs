@@ -25,21 +25,18 @@ namespace QualitySettings
         protected override void OnValidate()
         {
             base.OnValidate();
-
             _dropdown = Selectable as TMP_Dropdown;
         }
 
         protected override void Awake()
         {
             base.Awake();
-
             _dropdown.onValueChanged.AddListener(OnValueChanged);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            
             if (_dropdown)
                 _dropdown.onValueChanged.RemoveListener(OnValueChanged);
         }
