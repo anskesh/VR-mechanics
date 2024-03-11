@@ -10,27 +10,26 @@ using UnityEngine.Rendering.Universal;
 namespace QualitySettings.Editors
 {
 #if UNITY_EDITOR
-    [CustomEditor(typeof(DropdownComponent))]
+    [CustomEditor(typeof(EnumDropdownComponent))]
     public class DropdownComponentEditor : Editor
     {
-        private Type[] _enumTypes;
+        private List<Type> _enumTypes;
         private string[] _enumTypesString;
 
         private int _selectedIndex;
-        private DropdownComponent _dropdownComponent;
+        private EnumDropdownComponent _enumDropdownComponent;
 
-        private bool[] _excludedValues;
         private int[] _enumValues;
         private string[] _enumNames;
-        private bool _needExcludedUpdate;
+        private bool _needUpdateExcludedValues;
         
         private void OnEnable()
         {
-            _dropdownComponent = (DropdownComponent) target;
-            FindEnumTypes();
+            _enumDropdownComponent = (EnumDropdownComponent) target;
+            SetEnumTypes();
 
-            _selectedIndex = GetIndex(_dropdownComponent.EnumType);
-            UpdateType(_enumTypes[_selectedIndex]);
+            _selectedIndex = GetEnumTypeIndex(_enumDropdownComponent.EnumType);
+            ChangeEnumType(_enumTypes[_selectedIndex]);
         }
 
         public override void OnInspectorGUI()
@@ -38,20 +37,17 @@ namespace QualitySettings.Editors
             base.OnInspectorGUI();
             serializedObject.Update();
 
-            _selectedIndex = GetIndex(_dropdownComponent.EnumType);
+            _selectedIndex = GetEnumTypeIndex(_enumDropdownComponent.EnumType);
             _selectedIndex = EditorGUILayout.Popup("Enum Type", _selectedIndex, _enumTypesString);
-
             Type selectedType = _enumTypes[_selectedIndex];
             
-            if (_dropdownComponent.EnumType != selectedType)
-                UpdateType(selectedType);
-            else
-                _dropdownComponent.ExcludedValues.CopyTo(_excludedValues, 0);
+            if (_enumDropdownComponent.EnumType != selectedType)
+                ChangeEnumType(selectedType);
             
-            DrawExcludedToggles(_excludedValues);
+            DrawExcludedToggles(_enumDropdownComponent.ExcludedEnumValues);
             
-            if (_needExcludedUpdate)
-                UpdateExcluded();
+            if (_needUpdateExcludedValues)
+                ChangeDropdownValues();
             
             serializedObject.ApplyModifiedProperties();
         }
@@ -65,80 +61,67 @@ namespace QualitySettings.Editors
             {
                 bool isExcluded = values[i];
                 bool newExcluded = GUILayout.Toggle(isExcluded, _enumNames[i]);
-
-                if (newExcluded == isExcluded) 
-                    continue;
+                
+                if (newExcluded == isExcluded) continue;
         
                 values[i] = newExcluded;
-                _needExcludedUpdate = true;
+                _needUpdateExcludedValues = true;
             }
 
             GUILayout.EndVertical();
         }
         
-        private void UpdateType(Type type)
+        private void ChangeEnumType(Type selectedType)
         {
-            _dropdownComponent.UpdateType(type);
-            EditorUtility.SetDirty(_dropdownComponent);
-
-            UpdateEnumValues();
-            UpdateLockingComponent();
+            _enumDropdownComponent.ChangeEnumType(selectedType);
+            ChangeExcludedValues(selectedType);
+            ChangeDropdownValues();
         }
 
-        private void UpdateExcluded()
+        private void ChangeDropdownValues()
         {
-            _needExcludedUpdate = false;
-            _dropdownComponent.UpdateExcluded(_excludedValues);
-            EditorUtility.SetDirty(_dropdownComponent);
-            UpdateLockingComponent();
-        }
-
-        private void UpdateLockingComponent()
-        {
-            if (_dropdownComponent.TryGetComponent(out LockingDropdownComponent lockingDropdownComponent))
+            _needUpdateExcludedValues = false;
+            _enumDropdownComponent.ChangeDropdownValues(_enumValues, _enumNames);
+            EditorUtility.SetDirty(_enumDropdownComponent);
+            
+            if (_enumDropdownComponent.TryGetComponent(out LockingDropdownComponent lockingDropdownComponent))
                 lockingDropdownComponent.OnValidate();
         }
 
-        private void UpdateEnumValues()
+        private void ChangeExcludedValues(Type selectedType)
         {
-            Type selectedType = _enumTypes[_selectedIndex];
             _enumValues = (int[]) Enum.GetValues(selectedType);
-            string[] names = Enum.GetNames(selectedType);
-            _enumNames = new string[names.Length];
+            _enumNames = Enum.GetNames(selectedType);
 
-            for (int i = 0; i < names.Length; i++)
-                _enumNames[i] = EnumUtility.ConvertEnumValueToString(selectedType, names[i]);
-            
-            _excludedValues = new bool[_enumValues.Length];
+            for (int i = 0; i < _enumNames.Length; i++)
+                _enumNames[i] = EnumUtility.NormalizeEnumName(selectedType, _enumNames[i]);
         }
         
-        private void FindEnumTypes()
+        private void SetEnumTypes()
         {
-            List<Type> types = new();
+            _enumTypes = new List<Type>();
             Type urpScriptType = typeof(UniversalRenderPipelineAsset);
             FieldInfo[] fields = urpScriptType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
+            
             foreach (FieldInfo field in fields)
-                if (field.FieldType.IsEnum) types.Add(field.FieldType);
+            {
+                if (field.FieldType.IsEnum)
+                    _enumTypes.Add(field.FieldType);
+            }
 
-            _enumTypes = types.ToArray();
-            _enumTypesString = GetEnumTypeNames();
+            _enumTypesString = new string[_enumTypes.Count];
+
+            for (int i = 0; i < _enumTypes.Count; i++)
+                _enumTypesString[i] = _enumTypes[i].Name;
         }
 
-        private string[] GetEnumTypeNames()
+        private int GetEnumTypeIndex(Type type)
         {
-            List<string> typeNames = new();
-
-            foreach (Type type in _enumTypes)
-                typeNames.Add(type.Name);
-
-            return typeNames.ToArray();
-        }
-
-        private int GetIndex(Type type)
-        {
-            for (int i = 0; i < _enumTypes.Length; i++)
-                if (_enumTypes[i] == type) return i;
+            for (int i = 0; i < _enumTypes.Count; i++)
+            {
+                if (_enumTypes[i] == type)
+                    return i;
+            }
 
             return 0;
         }

@@ -6,13 +6,18 @@ namespace QualitySettings.UIComponents
 {
     public abstract class LockingComponent : MonoBehaviour
     {
-        [SerializeField] protected List<LockingComponent> BlockingChildComponents = new ();
-        [SerializeField] protected List<BlockingInfo> BlockingInfos;
+        [SerializeField] protected List<LockingComponent> LockingChildComponents = new();
+        [SerializeField] protected List<LockingInfo> LockingInfoList;
 
         [SerializeField, HideInInspector] protected UIComponent Component;
 
         protected int CurrentIndex;
         protected int Capacity = 0;
+
+        protected virtual void Awake()
+        {
+            Unlock(CurrentIndex);
+        }
 
         public void OnValidate()
         {
@@ -21,75 +26,73 @@ namespace QualitySettings.UIComponents
                 Component = GetComponent<UIComponent>();
                 OnComponentFounded();
             }
-            
+
             SetCapacity();
             UpdateValues();
         }
 
-        protected virtual void Awake() {}
-        protected virtual void OnDestroy() {}
         protected abstract void OnComponentFounded();
         protected abstract void SetCapacity();
-        protected abstract string GetName(int index);
+        protected abstract string GetBlockingInfoName(int index);
 
-        protected void ActivateLock(int index)
+        protected void Unlock(int index)
         {
-            ChangeInteractable(index, false);
+            SetInteractable(index, false);
         }
 
-        protected void DeactivateLock(int index)
+        protected void Lock(int index)
         {
-            ChangeInteractable(index, true);
+            SetInteractable(index, true);
 
-            foreach (LockingComponent childComponent in BlockingChildComponents)
-                childComponent.ActivateLock(childComponent.CurrentIndex);
+            foreach (LockingComponent childComponent in LockingChildComponents)
+                childComponent.Unlock(childComponent.CurrentIndex);
         }
-        
+
         private void UpdateValues()
         {
-            BlockingInfos ??= new List<BlockingInfo>(Capacity);
+            LockingInfoList ??= new List<LockingInfo>(Capacity);
 
             for (int i = 0; i < Capacity; i++)
             {
-                string valueName = GetName(i);
-                
-                if (BlockingInfos.Count <= i)
-                    BlockingInfos.Add(new BlockingInfo(valueName));
+                string infoName = GetBlockingInfoName(i);
+
+                if (i >= LockingInfoList.Count)
+                    LockingInfoList.Add(new LockingInfo(infoName));
                 else
-                    BlockingInfos[i].UpdateName(valueName);
+                    LockingInfoList[i].SetName(infoName);
             }
-            
+
             RemoveExtraValues(Capacity);
         }
 
         private void RemoveExtraValues(int capacity)
         {
-            if (BlockingInfos.Count <= capacity) return;
+            if (LockingInfoList.Count <= capacity) return;
 
-            for (int i = capacity - 1; i < BlockingInfos.Count; i++)
-                BlockingInfos.RemoveAt(BlockingInfos.Count - 1);
+            for (int i = capacity - 1; i < LockingInfoList.Count; i++)
+                LockingInfoList.RemoveAt(LockingInfoList.Count - 1);
         }
 
-        private void ChangeInteractable(int index, bool isInteractable)
+        private void SetInteractable(int index, bool isInteractable)
         {
-            foreach (UIComponent component in BlockingInfos[index].Components)
+            foreach (UIComponent component in LockingInfoList[index].Components)
                 component.SetInteractable(isInteractable);
         }
 
         [Serializable]
-        protected class BlockingInfo
+        protected class LockingInfo
         {
-            public IReadOnlyList<UIComponent> Components => _components;
+            public IReadOnlyList<UIComponent> Components { get { return _components;} }
 
             [SerializeField] private string _name;
             [SerializeField] private List<UIComponent> _components = new();
 
-            public BlockingInfo(string name)
+            public LockingInfo(string name)
             {
                 _name = name;
             }
 
-            public void UpdateName(string name)
+            public void SetName(string name)
             {
                 _name = name;
             }

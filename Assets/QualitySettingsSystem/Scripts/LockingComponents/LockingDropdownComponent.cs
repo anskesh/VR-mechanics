@@ -2,27 +2,25 @@
 
 namespace QualitySettings.UIComponents
 {
-    [RequireComponent(typeof(DropdownComponent))]
+    [RequireComponent(typeof(EnumDropdownComponent))]
     public class LockingDropdownComponent : LockingComponent
     {
-        [SerializeField, HideInInspector] private DropdownComponent _dropdownComponent;
+        [SerializeField, HideInInspector] private EnumDropdownComponent _dropdownComponent;
 
         protected override void Awake()
         {
             base.Awake();
             _dropdownComponent.ValueChangedEvent += OnValueChanged;
-            ActivateLock(CurrentIndex);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
             _dropdownComponent.ValueChangedEvent -= OnValueChanged;
         }
 
         protected override void OnComponentFounded()
         {
-            _dropdownComponent = Component as DropdownComponent;
+            _dropdownComponent = Component as EnumDropdownComponent;
         }
 
         protected override void SetCapacity()
@@ -30,7 +28,7 @@ namespace QualitySettings.UIComponents
             Capacity = _dropdownComponent.Options.Count;
         }
 
-        protected override string GetName(int index)
+        protected override string GetBlockingInfoName(int index)
         {
             return _dropdownComponent.Options[index].text;
         }
@@ -40,8 +38,8 @@ namespace QualitySettings.UIComponents
             if (CurrentIndex == value)
                 return;
 
-            DeactivateLock(CurrentIndex);
-            ActivateLock(value);
+            Lock(CurrentIndex);
+            Unlock(value);
             CurrentIndex = value;
         }
     }

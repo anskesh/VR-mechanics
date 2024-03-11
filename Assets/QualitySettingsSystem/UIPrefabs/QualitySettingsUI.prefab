@@ -1709,27 +1709,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9b4e604ca10374087dc8a57590627a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _depthTexture: {fileID: 5212615392499235052}
-  _opaqueTexture: {fileID: 5212615392647712620}
-  _opaqueDownsampling: {fileID: 7287620737049760082}
-  _hdr: {fileID: 5212615391283085646}
-  _antiAliasing: {fileID: 7287620735832060438}
+  _depthTextureToggle: {fileID: 5212615392499235052}
+  _opaqueTextureToggle: {fileID: 5212615392647712620}
+  _opaqueDownsamplingDropdown: {fileID: 7287620737049760082}
+  _hdrToggle: {fileID: 5212615391283085646}
+  _antiAliasingDropdown: {fileID: 7287620735832060438}
   _renderScale: {fileID: 7399956964796957694}
-  _upscalingFilter: {fileID: 7287620737013913810}
-  _mainLight: {fileID: 7287620737003727587}
-  _castShadows: {fileID: 5212615392047301040}
-  _shadowResolution: {fileID: 7287620735970756840}
-  _additionalLights: {fileID: 7287620736464859913}
-  _perObjectLimit: {fileID: 4758065859371996346}
-  _castShadowsAddLights: {fileID: 5212615391755028087}
-  _shadowAtlasResolution: {fileID: 7287620736433680611}
-  _maxDistance: {fileID: 7399956964392347543}
-  _cascadeCount: {fileID: 7708183188882749870}
-  _depthBias: {fileID: 7399956965446041363}
-  _normalBias: {fileID: 7399956966386455578}
-  _softShadows: {fileID: 5212615392385102484}
-  _gradingMode: {fileID: 7287620735578091371}
-  _fastConvertions: {fileID: 5212615391845758213}
+  _upscalingFilterDropdown: {fileID: 7287620737013913810}
+  _mainLightEnumDropdown: {fileID: 7287620737003727587}
+  _castShadowsToggle: {fileID: 5212615392047301040}
+  _shadowResolutionDropdown: {fileID: 7287620735970756840}
+  _additionalLightsDropdown: {fileID: 7287620736464859913}
+  _perObjectLimitSlider: {fileID: 4758065859371996346}
+  _castShadowsAddLightsToggle: {fileID: 5212615391755028087}
+  _shadowAtlasResolutionDropdown: {fileID: 7287620736433680611}
+  _maxDistanceSlider: {fileID: 7399956964392347543}
+  _cascadeCountSlider: {fileID: 7708183188882749870}
+  _depthBiasSlider: {fileID: 7399956965446041363}
+  _normalBiasSlider: {fileID: 7399956966386455578}
+  _softShadowsToggle: {fileID: 5212615392385102484}
+  _gradingModeDropdown: {fileID: 7287620735578091371}
+  _fastConvertionsToggle: {fileID: 5212615391845758213}
   _saveBtn: {fileID: 5154364716140244725}
   _discardBtn: {fileID: 5154364714733414772}
 --- !u!1001 &1929260574360420077
@@ -1898,9 +1898,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502a94819a07d7d47b5eab5d91b50619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents:
+  LockingChildComponents:
   - {fileID: 4508739994887861423}
-  BlockingInfos:
+  - {fileID: 5674832283176643613}
+  LockingInfoList:
   - _name: 0
     _components:
     - {fileID: 5212615391755028087}
@@ -2351,6 +2352,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.MsaaQuality, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.MsaaQuality, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -2384,7 +2390,31 @@ PrefabInstance:
       value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -2631,6 +2661,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -2664,7 +2699,35 @@ PrefabInstance:
       value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[0]
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[4]
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -2848,13 +2911,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a07f89ce8b31044893fe607957d1e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents: []
-  BlockingInfos:
+  LockingChildComponents: []
+  LockingInfoList:
   - _name: is On
-    _components: []
-  - _name: is Off
     _components:
     - {fileID: 7287620737049760082}
+  - _name: is Off
+    _components: []
   Component: {fileID: 5212615392647712620}
   _toggleComponent: {fileID: 5212615392647712620}
 --- !u!114 &5212615392647712620 stripped
@@ -3595,8 +3658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a07f89ce8b31044893fe607957d1e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents: []
-  BlockingInfos:
+  LockingChildComponents: []
+  LockingInfoList:
   - _name: is On
     _components: []
   - _name: is Off
@@ -3782,6 +3845,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.ColorGradingMode, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.ColorGradingMode, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -3807,7 +3875,27 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -3959,8 +4047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a07f89ce8b31044893fe607957d1e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents: []
-  BlockingInfos:
+  LockingChildComponents: []
+  LockingInfoList:
   - _name: is On
     _components: []
   - _name: is Off
@@ -4379,6 +4467,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.UpscalingFilterSelection, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.UpscalingFilterSelection, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -4408,7 +4501,27 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -4598,7 +4711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6027378175529677265, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
@@ -4635,6 +4748,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -4656,7 +4774,31 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -4682,6 +4824,22 @@ PrefabInstance:
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.data[3]._value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[3]
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -4718,16 +4876,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f695460fd28d4bb32bf73d7b764e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents:
+  LockingChildComponents:
   - {fileID: 2656045060726413511}
-  BlockingInfos:
+  LockingInfoList:
   - _name: Disabled
     _components:
     - {fileID: 5212615392047301040}
     - {fileID: 7287620735970756840}
   - _name: Per Pixel
-    _components: []
-  - _name: Per Vertex
     _components: []
   Component: {fileID: 7287620737003727587}
   _dropdownComponent: {fileID: 7287620737003727587}
@@ -5046,6 +5202,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.Downsampling, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.Downsampling, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -5071,7 +5232,31 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -5105,6 +5290,22 @@ PrefabInstance:
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.data[3]._value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.data[3]
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -5407,6 +5608,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.LightRenderingMode, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -5432,7 +5638,23 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
@@ -5442,6 +5664,10 @@ PrefabInstance:
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: excludedValues.Array.data[0]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.data[0]._text
@@ -5497,18 +5723,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f695460fd28d4bb32bf73d7b764e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingChildComponents:
+  LockingChildComponents:
   - {fileID: 4508739994887861423}
   - {fileID: 2497336214773405245}
-  BlockingInfos:
+  LockingInfoList:
   - _name: Disabled
     _components:
-    - {fileID: 5212615391755028087}
     - {fileID: 7287620736433680611}
+    - {fileID: 5212615391755028087}
+    - {fileID: 4758065859371996346}
   - _name: Per Pixel
     _components: []
   - _name: Per Vertex
-    _components: []
+    _components:
+    - {fileID: 5212615391755028087}
+    - {fileID: 7287620736433680611}
   Component: {fileID: 7287620736464859913}
   _dropdownComponent: {fileID: 7287620736464859913}
 --- !u!224 &7793427908393846939 stripped
@@ -5678,6 +5907,11 @@ PrefabInstance:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumTypeName
+      value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _typeEnumName
       value: UnityEngine.Rendering.Universal.ShadowResolution, Unity.RenderPipelines.Universal.Runtime,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -5711,7 +5945,35 @@ PrefabInstance:
       value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
       propertyPath: _optionData.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[0]
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[1]
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[2]
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[3]
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _enumValues.Array.data[4]
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}
+      propertyPath: _excludedEnumValues.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6583468945861649372, guid: 00afd6631e56368448277bedee6445ee, type: 3}

@@ -12,7 +12,7 @@ namespace QualitySettings.Utility
             FieldInfo fieldInfo = type.GetField(fieldName,  BindingFlags.NonPublic | BindingFlags.Instance);
 
             if (fieldInfo == null)
-                throw new Exception("Field not found");
+                throw new Exception($"Field {fieldName} not found");
             
             fieldInfo.SetValue(asset, value);
         }
@@ -23,7 +23,7 @@ namespace QualitySettings.Utility
             PropertyInfo propertyInfo = type.GetProperty(propertyName,  BindingFlags.Public | BindingFlags.Instance);
 
             if (propertyInfo == null)
-                throw new Exception("Field not found");
+                throw new Exception($"Property {propertyName} not found");
             
             propertyInfo.SetValue(asset, value);
         }

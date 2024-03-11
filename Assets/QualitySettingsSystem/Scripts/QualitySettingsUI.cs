@@ -1,7 +1,9 @@
-﻿using QualitySettings.UIComponents;
+﻿using System;
+using QualitySettings.UIComponents;
 using QualitySettings.Utility;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using ShadowResolution = UnityEngine.Rendering.Universal.ShadowResolution;
 
@@ -10,38 +12,43 @@ namespace QualitySettings
     public class QualitySettingsUI : MonoBehaviour
     {
         [Header("Rendering")]
-        [SerializeField] private ToggleComponent _depthTexture;
-        [SerializeField] private ToggleComponent _opaqueTexture;
-        [SerializeField] private DropdownComponent _opaqueDownsampling;
+        [SerializeField] private ToggleComponent _depthTextureToggle;
+        [SerializeField] private ToggleComponent _opaqueTextureToggle;
+        [SerializeField] private EnumDropdownComponent _opaqueDownsamplingDropdown;
         
-        [Space][Header("Quality")]
-        [SerializeField] private ToggleComponent _hdr;
-        [SerializeField] private DropdownComponent _antiAliasing;
+        [Space]
+        [Header("Quality")]
+        [SerializeField] private ToggleComponent _hdrToggle;
+        [SerializeField] private EnumDropdownComponent _antiAliasingDropdown;
         [SerializeField] private SliderComponent _renderScale;
-        [SerializeField] private DropdownComponent _upscalingFilter;
+        [SerializeField] private EnumDropdownComponent _upscalingFilterDropdown;
         
-        [Space][Header("Lighting")]
-        [SerializeField] private DropdownComponent _mainLight;
-        [SerializeField] private ToggleComponent _castShadows;
-        [SerializeField] private DropdownComponent _shadowResolution;
+        [Space]
+        [Header("Lighting")]
+        [SerializeField] private EnumDropdownComponent _mainLightEnumDropdown;
+        [SerializeField] private ToggleComponent _castShadowsToggle;
+        [SerializeField] private EnumDropdownComponent _shadowResolutionDropdown;
+        [Space]
+        [SerializeField] private EnumDropdownComponent _additionalLightsDropdown;
+        [SerializeField] private SliderComponent _perObjectLimitSlider;
+        [SerializeField] private ToggleComponent _castShadowsAddLightsToggle;
+        [SerializeField] private EnumDropdownComponent _shadowAtlasResolutionDropdown;
         
-        [SerializeField] private DropdownComponent _additionalLights;
-        [SerializeField] private SliderComponent _perObjectLimit;
-        [SerializeField] private ToggleComponent _castShadowsAddLights;
-        [SerializeField] private DropdownComponent _shadowAtlasResolution;
+        [Space]
+        [Header("Shadows")]
+        [SerializeField] private SliderComponent _maxDistanceSlider;
+        [SerializeField] private SliderComponent _cascadeCountSlider;
+        [SerializeField] private SliderComponent _depthBiasSlider;
+        [SerializeField] private SliderComponent _normalBiasSlider;
+        [SerializeField] private ToggleComponent _softShadowsToggle;
         
-        [Space][Header("Shadows")]
-        [SerializeField] private SliderComponent _maxDistance;
-        [SerializeField] private SliderComponent _cascadeCount;
-        [SerializeField] private SliderComponent _depthBias;
-        [SerializeField] private SliderComponent _normalBias;
-        [SerializeField] private ToggleComponent _softShadows;
+        [Space]
+        [Header("Post-processing")]
+        [SerializeField] private EnumDropdownComponent _gradingModeDropdown;
+        [SerializeField] private ToggleComponent _fastConvertionsToggle;
         
-        [Space][Header("Post-processing")]
-        [SerializeField] private DropdownComponent _gradingMode;
-        [SerializeField] private ToggleComponent _fastConvertions;
-
-        [Space][Header("Managing buttons")] 
+        [Space]
+        [Header("Managing buttons")] 
         [SerializeField] private Button _saveBtn;
         [SerializeField] private Button _discardBtn;
         
@@ -49,107 +56,95 @@ namespace QualitySettings
 
         private void Awake()
         {
-            _saveBtn.onClick.AddListener(OnApplyClickBtn);
-            _discardBtn.onClick.AddListener(OnDiscardClickBtn);
+            _saveBtn.onClick.AddListener(SetValues);
+            _discardBtn.onClick.AddListener(ResetValues);
             
             UpdateRenderPipelineAsset();
         }
 
         private void OnDestroy()
         {
-            _saveBtn.onClick.RemoveListener(OnApplyClickBtn);
-            _discardBtn.onClick.RemoveListener(OnDiscardClickBtn);
-        }
-
-        private void OnApplyClickBtn()
-        {
-            SetValues();
-        }
-
-        private void OnDiscardClickBtn()
-        {
-            UpdateDefaultValues();
+            _saveBtn.onClick.RemoveListener(SetValues);
+            _discardBtn.onClick.RemoveListener(ResetValues);
         }
         
         private void UpdateRenderPipelineAsset()
         {
             _currentAsset = UnityEngine.QualitySettings.renderPipeline as UniversalRenderPipelineAsset;
-            UpdateDefaultValues();
+
+            if (!_currentAsset)
+                throw new Exception("Universal render pipeline doesn't selected.");
+            
+            ResetValues();
         }
 
-        private void UpdateDefaultValues()
+        private void ResetValues()
         {
-            if (!_currentAsset)
-                return;
-            
             // Rendering
-            _depthTexture.IsOn = _currentAsset.supportsCameraDepthTexture;
-            _opaqueTexture.IsOn = _currentAsset.supportsCameraOpaqueTexture;
-            _opaqueDownsampling.ChangeValue(_currentAsset.opaqueDownsampling);
+            _depthTextureToggle.IsOn = _currentAsset.supportsCameraDepthTexture;
+            _opaqueTextureToggle.IsOn = _currentAsset.supportsCameraOpaqueTexture;
+            _opaqueDownsamplingDropdown.ChangeValue(_currentAsset.opaqueDownsampling);
             
             // Quality
-            _hdr.IsOn = _currentAsset.supportsHDR;
-            _antiAliasing.ChangeValue((MsaaQuality) _currentAsset.msaaSampleCount);
+            _hdrToggle.IsOn = _currentAsset.supportsHDR;
+            _antiAliasingDropdown.ChangeValue((MsaaQuality) _currentAsset.msaaSampleCount);
             _renderScale.Value = _currentAsset.renderScale;
-            _upscalingFilter.ChangeValue(_currentAsset.upscalingFilter);
+            _upscalingFilterDropdown.ChangeValue(_currentAsset.upscalingFilter);
 
             // Lighting
-            _mainLight.ChangeValue(_currentAsset.mainLightRenderingMode);
-            _castShadows.IsOn = _currentAsset.supportsMainLightShadows;
-            _shadowResolution.ChangeValue((ShadowResolution) _currentAsset.mainLightShadowmapResolution);
-            _additionalLights.ChangeValue(_currentAsset.additionalLightsRenderingMode);
-            _perObjectLimit.ChangeMinMax(0, UniversalRenderPipeline.maxPerObjectLights);
-            _perObjectLimit.Value = _currentAsset.maxAdditionalLightsCount;
-            _castShadowsAddLights.IsOn = _currentAsset.supportsAdditionalLightShadows;
-            _shadowAtlasResolution.ChangeValue((ShadowResolution) _currentAsset.additionalLightsShadowmapResolution);
+            _mainLightEnumDropdown.ChangeValue(_currentAsset.mainLightRenderingMode);
+            _castShadowsToggle.IsOn = _currentAsset.supportsMainLightShadows;
+            _shadowResolutionDropdown.ChangeValue((ShadowResolution) _currentAsset.mainLightShadowmapResolution);
+            _additionalLightsDropdown.ChangeValue(_currentAsset.additionalLightsRenderingMode);
+            _perObjectLimitSlider.ChangeMinMax(0, UniversalRenderPipeline.maxPerObjectLights);
+            _perObjectLimitSlider.Value = _currentAsset.maxAdditionalLightsCount;
+            _castShadowsAddLightsToggle.IsOn = _currentAsset.supportsAdditionalLightShadows;
+            _shadowAtlasResolutionDropdown.ChangeValue((ShadowResolution) _currentAsset.additionalLightsShadowmapResolution);
 
             // Shadows
-            _maxDistance.Value = _currentAsset.shadowDistance;
-            _cascadeCount.Value = _currentAsset.shadowCascadeCount;
-            _depthBias.Value = _currentAsset.shadowDepthBias;
-            _normalBias.Value = _currentAsset.shadowNormalBias;
-            _softShadows.IsOn = _currentAsset.supportsSoftShadows;
+            _maxDistanceSlider.Value = _currentAsset.shadowDistance;
+            _cascadeCountSlider.Value = _currentAsset.shadowCascadeCount;
+            _depthBiasSlider.Value = _currentAsset.shadowDepthBias;
+            _normalBiasSlider.Value = _currentAsset.shadowNormalBias;
+            _softShadowsToggle.IsOn = _currentAsset.supportsSoftShadows;
 
             // Post-Processing
-            _gradingMode.ChangeValue(_currentAsset.colorGradingMode);
-            _fastConvertions.IsOn = _currentAsset.useFastSRGBLinearConversion;
+            _gradingModeDropdown.ChangeValue(_currentAsset.colorGradingMode);
+            _fastConvertionsToggle.IsOn = _currentAsset.useFastSRGBLinearConversion;
         }
 
         private void SetValues()
         {
-            if (!_currentAsset)
-                return;
-            
             // Rendering
-            _currentAsset.supportsCameraDepthTexture = _depthTexture.IsOn;
-            _currentAsset.supportsCameraOpaqueTexture = _opaqueTexture.IsOn;
-            _currentAsset.SetFieldValue("m_OpaqueDownsampling", (Downsampling) _opaqueDownsampling.GetEnum());
+            _currentAsset.supportsCameraDepthTexture = _depthTextureToggle.IsOn;
+            _currentAsset.supportsCameraOpaqueTexture = _opaqueTextureToggle.IsOn;
+            _currentAsset.SetFieldValue("m_OpaqueDownsampling", _opaqueDownsamplingDropdown.GetEnumValue<Downsampling>());
             
             // Quality
-            _currentAsset.supportsHDR = _hdr.IsOn;
-            _currentAsset.msaaSampleCount = _antiAliasing.GetValue();
+            _currentAsset.supportsHDR = _hdrToggle.IsOn;
+            _currentAsset.msaaSampleCount = _antiAliasingDropdown.GetIntValue();
             _currentAsset.renderScale = _renderScale.Value;
-            _currentAsset.upscalingFilter = (UpscalingFilterSelection) _upscalingFilter.GetEnum();
+            _currentAsset.upscalingFilter = _upscalingFilterDropdown.GetEnumValue<UpscalingFilterSelection>();
 
             // Lighting
-            _currentAsset.SetPropertyValue("mainLightRenderingMode", (LightRenderingMode) _mainLight.GetEnum());
-            _currentAsset.SetPropertyValue("supportsMainLightShadows", _castShadows.IsOn);
-            _currentAsset.SetPropertyValue("mainLightShadowmapResolution", _shadowResolution.GetValue());
-            _currentAsset.SetPropertyValue("additionalLightsRenderingMode", (LightRenderingMode) _additionalLights.GetEnum());
-            _currentAsset.SetPropertyValue("maxAdditionalLightsCount", (int) _perObjectLimit.Value);
-            _currentAsset.SetPropertyValue("supportsAdditionalLightShadows", _castShadowsAddLights.IsOn);
-            _currentAsset.SetPropertyValue("additionalLightsShadowmapResolution", _shadowAtlasResolution.GetValue());
+            _currentAsset.SetPropertyValue("mainLightRenderingMode", _mainLightEnumDropdown.GetEnumValue<LightRenderingMode>());
+            _currentAsset.SetPropertyValue("supportsMainLightShadows", _castShadowsToggle.IsOn);
+            _currentAsset.SetPropertyValue("mainLightShadowmapResolution", _shadowResolutionDropdown.GetIntValue());
+            _currentAsset.SetPropertyValue("additionalLightsRenderingMode", _additionalLightsDropdown.GetEnumValue<LightRenderingMode>());
+            _currentAsset.SetPropertyValue("maxAdditionalLightsCount", (int) _perObjectLimitSlider.Value);
+            _currentAsset.SetPropertyValue("supportsAdditionalLightShadows", _castShadowsAddLightsToggle.IsOn);
+            _currentAsset.SetPropertyValue("additionalLightsShadowmapResolution", _shadowAtlasResolutionDropdown.GetIntValue());
 
             // Shadows
-            _currentAsset.shadowDistance = _maxDistance.Value;
-            _currentAsset.shadowCascadeCount = (int) _cascadeCount.Value;
-            _currentAsset.shadowDepthBias = _depthBias.Value;
-            _currentAsset.shadowNormalBias = _normalBias.Value;
-            _currentAsset.SetPropertyValue("supportsSoftShadows", _softShadows.IsOn);;
+            _currentAsset.shadowDistance = _maxDistanceSlider.Value;
+            _currentAsset.shadowCascadeCount = (int) _cascadeCountSlider.Value;
+            _currentAsset.shadowDepthBias = _depthBiasSlider.Value;
+            _currentAsset.shadowNormalBias = _normalBiasSlider.Value;
+            _currentAsset.SetPropertyValue("supportsSoftShadows", _softShadowsToggle.IsOn);;
 
             // Post-Processing
-            _currentAsset.colorGradingMode = (ColorGradingMode) _gradingMode.GetEnum();
-            _currentAsset.SetFieldValue("m_UseFastSRGBLinearConversion", _fastConvertions.IsOn);
+            _currentAsset.colorGradingMode = _gradingModeDropdown.GetEnumValue<ColorGradingMode>();
+            _currentAsset.SetFieldValue("m_UseFastSRGBLinearConversion", _fastConvertionsToggle.IsOn);
         }
     }
 }

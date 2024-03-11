@@ -3,12 +3,9 @@ using UnityEngine.UI;
 
 namespace QualitySettings.UIComponents
 {
-    public class UIComponent : MonoBehaviour
+    public abstract class UIComponent : MonoBehaviour
     {
         [SerializeField, HideInInspector] protected Selectable Selectable;
-
-        protected virtual void Awake() {}
-        protected virtual void OnDestroy() {}
 
         protected virtual void OnValidate()
         {

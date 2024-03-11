@@ -10,14 +10,11 @@ namespace QualitySettings.UIComponents
         protected override void Awake()
         {
             base.Awake();
-
             _sliderComponent.ValueChangedEvent += OnValueChanged;
-            ActivateLock(0);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
             _sliderComponent.ValueChangedEvent -= OnValueChanged;
         }
         
@@ -31,7 +28,7 @@ namespace QualitySettings.UIComponents
             Capacity = _sliderComponent.ValuesCount;
         }
 
-        protected override string GetName(int index)
+        protected override string GetBlockingInfoName(int index)
         {
             return (index + _sliderComponent.MinValue).ToString();
         }
@@ -43,8 +40,8 @@ namespace QualitySettings.UIComponents
             if (CurrentIndex == index)
                 return;
             
-            DeactivateLock(CurrentIndex);
-            ActivateLock(index);
+            Lock(CurrentIndex);
+            Unlock(index);
             
             CurrentIndex = index;
         }

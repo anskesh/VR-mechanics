@@ -1,36 +1,34 @@
 ﻿using System;
 using System.Reflection;
+using System.Text;
 using UnityEngine;
 
 namespace QualitySettings.Utility
 {
     public static class EnumUtility
     {
-        public static string ConvertEnumValueToString(Type type, string value)
+        public static string NormalizeEnumName(Type type, string name)
         {
-            FieldInfo fieldInfo = type.GetField(value);
-            InspectorNameAttribute inspectorNameAttribute =
-                (InspectorNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(InspectorNameAttribute));
-
-            return inspectorNameAttribute != null ? inspectorNameAttribute.displayName : ConvertEnumValueName(value);
+            FieldInfo fieldInfo = type.GetField(name);
+            InspectorNameAttribute inspectorNameAttribute = (InspectorNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(InspectorNameAttribute));
+            return inspectorNameAttribute != null ? inspectorNameAttribute.displayName : ConvertEnumValueName(name);
         }
 
         private static string ConvertEnumValueName(string value)
         {
-            string convertedString = "";
-            
-            foreach (var symbol in value)
-            {
-                if (symbol == '_') continue;
+            StringBuilder convertedString = new StringBuilder();
 
-                if (char.IsUpper(symbol))
-                    convertedString += " ";
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (value[i] == '_') continue;
+
+                if (char.IsUpper(value[i]))
+                    convertedString.Append(' ');
                 
-                convertedString += symbol;
+                convertedString.Append(value[i]);
             }
 
-            convertedString = convertedString.TrimStart();
-            return convertedString;
+            return convertedString.ToString().TrimStart();
         }
     }
 }

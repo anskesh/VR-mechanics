@@ -9,16 +9,15 @@ namespace QualitySettings.UIComponents
     public class SliderComponent : UIComponent
     {
         public Action<float> ValueChangedEvent;
-        
-        public Slider Slider => _slider;
-        public int ValuesCount => (int) (_slider.maxValue - _slider.minValue) + 1;
-        public int MinValue => (int) _slider.minValue;
-        
+
         public float Value
         {
-            get => Slider.value;
-            set => Slider.value = value;
+            get { return _slider.value;}
+            set { _slider.value = value; }
         }
+        public Slider Slider {get { return _slider; }}
+        public int ValuesCount {get { return (int) (_slider.maxValue - _slider.minValue) + 1; }}
+        public int MinValue {get {return (int) _slider.minValue;}}
         
         [SerializeField] private TextMeshProUGUI _textValue;
         [SerializeField, HideInInspector] private Slider _slider;
@@ -29,19 +28,16 @@ namespace QualitySettings.UIComponents
             _slider = Selectable as Slider;
         }
         
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-            
             OnSliderValueChanged(_slider.value);
             Slider.onValueChanged.AddListener(OnSliderValueChanged);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
-            
-            if (Slider) Slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+            if (Slider) 
+                Slider.onValueChanged.RemoveListener(OnSliderValueChanged);
         }
 
         public void ChangeMinMax(float min, float max)

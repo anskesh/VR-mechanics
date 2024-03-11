@@ -11,11 +11,9 @@ namespace QualitySettings.UIComponents
         
         public bool IsOn
         {
-            get => Toggle.isOn;
-            set => Toggle.isOn = value;
+            get { return _toggle.isOn; }
+            set { _toggle.isOn = value; }
         }
-        
-        public Toggle Toggle => _toggle;
         
         [SerializeField, HideInInspector] private Toggle _toggle;
 
@@ -25,16 +23,15 @@ namespace QualitySettings.UIComponents
             _toggle = Selectable as Toggle;
         }
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             _toggle.onValueChanged.AddListener(OnValueChanged);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
-            if (_toggle) _toggle.onValueChanged.RemoveListener(OnValueChanged);
+            if (_toggle) 
+                _toggle.onValueChanged.RemoveListener(OnValueChanged);
         }
 
         private void OnValueChanged(bool value)

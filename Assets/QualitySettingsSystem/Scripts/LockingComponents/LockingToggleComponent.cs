@@ -12,14 +12,11 @@ namespace QualitySettings.UIComponents
         protected override void Awake()
         {
             base.Awake();
-
             _toggleComponent.ValueChangedEvent += OnValueChanged;
-            ActivateLock(0);
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
             _toggleComponent.ValueChangedEvent -= OnValueChanged;
         }
         
@@ -33,7 +30,7 @@ namespace QualitySettings.UIComponents
             Capacity = _toggleValues.Length;
         }
 
-        protected override string GetName(int index)
+        protected override string GetBlockingInfoName(int index)
         {
             return _toggleValues[index];
         }
@@ -45,8 +42,8 @@ namespace QualitySettings.UIComponents
             if (CurrentIndex == index)
                 return;
             
-            DeactivateLock(CurrentIndex);
-            ActivateLock(index);
+            Lock(CurrentIndex);
+            Unlock(index);
             
             CurrentIndex = index;
         }
