@@ -16,8 +16,12 @@ namespace QualitySettings.UIComponents
 
         public void OnValidate()
         {
-            Component = GetComponent<UIComponent>();
-            OnComponentFounded();
+            if (!Component)
+            {
+                Component = GetComponent<UIComponent>();
+                OnComponentFounded();
+            }
+            
             SetCapacity();
             UpdateValues();
         }

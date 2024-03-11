@@ -11,7 +11,7 @@ namespace QualitySettings.UIComponents
         public Action<float> ValueChangedEvent;
         
         public Slider Slider => _slider;
-        public int ValuesCount => (int) (_slider.maxValue - _slider.minValue);
+        public int ValuesCount => (int) (_slider.maxValue - _slider.minValue) + 1;
         public int MinValue => (int) _slider.minValue;
         
         public float Value
@@ -42,6 +42,14 @@ namespace QualitySettings.UIComponents
             base.OnDestroy();
             
             if (Slider) Slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+        }
+
+        public void ChangeMinMax(float min, float max)
+        {
+            _slider.minValue = min;
+            _slider.maxValue = max;
+
+            _slider.value = Math.Clamp(_slider.value, min, max);
         }
         
         private void OnSliderValueChanged(float value)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using QualitySettings.Utility;
 using TMPro;
@@ -13,10 +14,13 @@ namespace QualitySettings.UIComponents
 
         public IReadOnlyList<TMP_Dropdown.OptionData> Options => _dropdown.options;
         public Type EnumType => _enumType ??= Type.GetType(_typeEnumName);
+        public bool[] ExcludedValues => _excludedValues;
         
         [SerializeField, HideInInspector] private string _typeEnumName = "UnityEngine.Rendering.Universal.RendererType, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
         [SerializeField, HideInInspector] private TMP_Dropdown _dropdown;
+        
         [SerializeField, HideInInspector] private List<int> _values;
+        [SerializeField, HideInInspector] private bool[] _excludedValues;
 
         private Dictionary<int, int> _valuesIndexes;
         private Type _enumType;
@@ -53,6 +57,12 @@ namespace QualitySettings.UIComponents
             UpdateValues();
         }
 
+        public void UpdateExcluded(bool[] excludedValues)
+        {
+            excludedValues.CopyTo(_excludedValues, 0);
+            UpdateValues();
+        }
+
         public Enum GetEnum()
         {
             int enumValue = _values[_dropdown.value];
@@ -78,35 +88,62 @@ namespace QualitySettings.UIComponents
             int capacity = values.Length;
             _values ??= new List<int>(capacity);
             
-            for (int i = 0; i < capacity; i++)
+            if (_excludedValues.Length != capacity)
+                _excludedValues = new bool[capacity];
+
+            int capacityWithExcluded = GetWithExcludedCapacity();
+            List<string> convertedNames = new List<string>(capacityWithExcluded);
+
+            int index = 0;
+            int enumValueIndex = 0;
+            while (index < capacity && enumValueIndex < capacity)
             {
-                int enumValue = (int) values.GetValue(i);
-                string enumName = EnumUtility.ConvertEnumValueToString(EnumType, (string) names.GetValue(i));
+                if (_excludedValues[enumValueIndex])
+                {
+                    enumValueIndex++;
+                    continue;
+                }
                 
-                if (_values.Count <= i)
-                {
-                    _values.Add(enumValue);
-                    _dropdown.options.Add(new TMP_Dropdown.OptionData(enumName));
-                }
-                else
-                {
-                    _values[i] = enumValue;
-                    _dropdown.options[i].text = enumName;
-                }
+                int enumValue = (int) values.GetValue(enumValueIndex);
+                string enumName = EnumUtility.ConvertEnumValueToString(EnumType, (string) names.GetValue(enumValueIndex));
+                convertedNames.Add(enumName);
+                
+                if (_values.Count <= index) _values.Add(enumValue);
+                else _values[index] = enumValue;
+
+                enumValueIndex++;
+                index++;
             }
             
-            RemoveExtraValues(capacity);
+            RemoveExtraValues(_values, capacityWithExcluded);
+
+            for (int i = 0; i < _values.Count; i++)
+            {
+                if (_dropdown.options.Count <= i)
+                    _dropdown.options.Add(new TMP_Dropdown.OptionData(convertedNames[i]));
+                else
+                    _dropdown.options[i].text = convertedNames[i];
+            }
+            
+            RemoveExtraValues(_dropdown.options, capacityWithExcluded);
+        }
+        
+        private void RemoveExtraValues(IList list, int capacity)
+        {
+            if (list.Count <= capacity) return;
+            
+            for (int i = capacity - 1; i < list.Count; i++)
+                list.RemoveAt(list.Count - 1);
         }
 
-        private void RemoveExtraValues(int capacity)
+        private int GetWithExcludedCapacity()
         {
-            if (_values.Count <= capacity && _dropdown.options.Count <= capacity) return;
+            int count = 0;
             
-            for (int i = capacity - 1; i < _values.Count; i++)
-                _values.RemoveAt(_values.Count - 1);
+            for (int i = 0; i < _excludedValues.Length; i++)
+                if (!_excludedValues[i]) count++;
             
-            for (int i = capacity - 1; i < _dropdown.options.Count; i++)
-                _dropdown.options.RemoveAt(_dropdown.options.Count - 1);
+            return count;
         }
 
         private void OnValueChanged(int value)

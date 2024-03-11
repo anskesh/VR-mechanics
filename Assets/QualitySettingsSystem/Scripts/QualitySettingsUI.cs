@@ -98,6 +98,7 @@ namespace QualitySettings
             _castShadows.IsOn = _currentAsset.supportsMainLightShadows;
             _shadowResolution.ChangeValue((ShadowResolution) _currentAsset.mainLightShadowmapResolution);
             _additionalLights.ChangeValue(_currentAsset.additionalLightsRenderingMode);
+            _perObjectLimit.ChangeMinMax(0, UniversalRenderPipeline.maxPerObjectLights);
             _perObjectLimit.Value = _currentAsset.maxAdditionalLightsCount;
             _castShadowsAddLights.IsOn = _currentAsset.supportsAdditionalLightShadows;
             _shadowAtlasResolution.ChangeValue((ShadowResolution) _currentAsset.additionalLightsShadowmapResolution);

@@ -34,7 +34,6 @@ namespace QualitySettings.UIComponents
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            
             if (_toggle) _toggle.onValueChanged.RemoveListener(OnValueChanged);
         }
 
