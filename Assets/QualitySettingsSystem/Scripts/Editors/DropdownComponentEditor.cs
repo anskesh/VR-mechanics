@@ -22,7 +22,7 @@ namespace QualitySettings.Editors
         private int[] _enumValues;
         private string[] _enumNames;
         private bool _needUpdateExcludedValues;
-        
+
         private void OnEnable()
         {
             _enumDropdownComponent = (EnumDropdownComponent) target;
@@ -40,37 +40,38 @@ namespace QualitySettings.Editors
             _selectedIndex = GetEnumTypeIndex(_enumDropdownComponent.EnumType);
             _selectedIndex = EditorGUILayout.Popup("Enum Type", _selectedIndex, _enumTypesString);
             Type selectedType = _enumTypes[_selectedIndex];
-            
+
             if (_enumDropdownComponent.EnumType != selectedType)
                 ChangeEnumType(selectedType);
-            
-            DrawExcludedToggles(_enumDropdownComponent.ExcludedEnumValues);
-            
+
+            DrawExcludedToggleGroup(_enumDropdownComponent.ExcludedEnumValues);
+
             if (_needUpdateExcludedValues)
                 ChangeDropdownValues();
-            
+
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawExcludedToggles(bool[] values)
+        private void DrawExcludedToggleGroup(bool[] values)
         {
             GUILayout.BeginVertical(GUI.skin.box);
             GUILayout.Label("Excluded values", EditorStyles.boldLabel);
-            
+
             for (int i = 0; i < _enumValues.Length; i++)
             {
                 bool isExcluded = values[i];
                 bool newExcluded = GUILayout.Toggle(isExcluded, _enumNames[i]);
-                
-                if (newExcluded == isExcluded) continue;
-        
+
+                if (newExcluded == isExcluded)
+                    continue;
+
                 values[i] = newExcluded;
                 _needUpdateExcludedValues = true;
             }
 
             GUILayout.EndVertical();
         }
-        
+
         private void ChangeEnumType(Type selectedType)
         {
             _enumDropdownComponent.ChangeEnumType(selectedType);
@@ -83,7 +84,7 @@ namespace QualitySettings.Editors
             _needUpdateExcludedValues = false;
             _enumDropdownComponent.ChangeDropdownValues(_enumValues, _enumNames);
             EditorUtility.SetDirty(_enumDropdownComponent);
-            
+
             if (_enumDropdownComponent.TryGetComponent(out LockingDropdownComponent lockingDropdownComponent))
                 lockingDropdownComponent.OnValidate();
         }
@@ -96,13 +97,14 @@ namespace QualitySettings.Editors
             for (int i = 0; i < _enumNames.Length; i++)
                 _enumNames[i] = EnumUtility.NormalizeEnumName(selectedType, _enumNames[i]);
         }
-        
+
         private void SetEnumTypes()
         {
             _enumTypes = new List<Type>();
             Type urpScriptType = typeof(UniversalRenderPipelineAsset);
             FieldInfo[] fields = urpScriptType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             
+
             foreach (FieldInfo field in fields)
             {
                 if (field.FieldType.IsEnum)

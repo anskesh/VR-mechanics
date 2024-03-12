@@ -11,8 +11,9 @@ namespace QualitySettings.UIComponents
 
         protected override void Awake()
         {
-            base.Awake();
             _toggleComponent.ValueChangedEvent += OnValueChanged;
+            CurrentIndex = 1;
+            base.Awake();
         }
 
         protected void OnDestroy()
@@ -42,8 +43,8 @@ namespace QualitySettings.UIComponents
             if (CurrentIndex == index)
                 return;
             
-            Lock(CurrentIndex);
-            Unlock(index);
+            Unlock(CurrentIndex);
+            Lock(index);
             
             CurrentIndex = index;
         }

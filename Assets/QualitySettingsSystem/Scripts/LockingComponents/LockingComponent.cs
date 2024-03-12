@@ -16,7 +16,7 @@ namespace QualitySettings.UIComponents
 
         protected virtual void Awake()
         {
-            Unlock(CurrentIndex);
+            Lock(CurrentIndex);
         }
 
         public void OnValidate()
@@ -35,17 +35,17 @@ namespace QualitySettings.UIComponents
         protected abstract void SetCapacity();
         protected abstract string GetBlockingInfoName(int index);
 
-        protected void Unlock(int index)
+        protected void Lock(int index, UIComponent skipComponent = null)
         {
-            SetInteractable(index, false);
+            SetInteractable(index, false, skipComponent);
         }
 
-        protected void Lock(int index)
+        protected void Unlock(int index)
         {
             SetInteractable(index, true);
 
             foreach (LockingComponent childComponent in LockingChildComponents)
-                childComponent.Unlock(childComponent.CurrentIndex);
+                childComponent.Lock(childComponent.CurrentIndex, Component);
         }
 
         private void UpdateValues()
@@ -73,10 +73,10 @@ namespace QualitySettings.UIComponents
                 LockingInfoList.RemoveAt(LockingInfoList.Count - 1);
         }
 
-        private void SetInteractable(int index, bool isInteractable)
+        private void SetInteractable(int index, bool isInteractable, UIComponent skipComponent = null)
         {
             foreach (UIComponent component in LockingInfoList[index].Components)
-                component.SetInteractable(isInteractable);
+                if (component != skipComponent) component.SetInteractable(isInteractable);
         }
 
         [Serializable]

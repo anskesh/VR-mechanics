@@ -14,6 +14,9 @@ namespace QualitySettings.UIComponents
 
         public void SetInteractable(bool isInteractable)
         {
+            if (isInteractable == Selectable.interactable)
+                return;
+            
             Selectable.interactable = isInteractable;
         }
     }

@@ -40,8 +40,8 @@ namespace QualitySettings.UIComponents
             if (CurrentIndex == index)
                 return;
             
-            Lock(CurrentIndex);
-            Unlock(index);
+            Unlock(CurrentIndex);
+            Lock(index);
             
             CurrentIndex = index;
         }
